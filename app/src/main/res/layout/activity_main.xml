@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.mapbox.mapboxsdk.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mapbox_cameraBearing="34.33"
+            app:mapbox_cameraTargetLat="33.955316"
+            app:mapbox_cameraTargetLng="131.240986"
+            app:mapbox_cameraTilt="50.25"
+            app:mapbox_cameraZoom="16"
+            app:mapbox_cameraZoomMax="18"
+            app:mapbox_cameraZoomMin="13"
+            app:mapbox_uiRotateGestures="true">
+
+        </com.mapbox.mapboxsdk.maps.MapView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <Button
+            android:id="@+id/back_to_camera_tracking_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
