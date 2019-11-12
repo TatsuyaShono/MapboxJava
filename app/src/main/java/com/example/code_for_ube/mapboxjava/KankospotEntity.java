@@ -1,6 +1,6 @@
 package com.example.code_for_ube.mapboxjava;
 
-import com.opencsv.bean.CsvBindByName;
+import com.univocity.parsers.annotations.*;
 import lombok.Data;
 
 /**
@@ -12,8 +12,8 @@ public class KankospotEntity {
     /**
      * ID
      */
-    @CsvBindByName(column = "id", required = true)
-    private Integer id;
+    @Parsed(field = "id")
+    public Integer id = 0;
 
     public Integer getId() {
         return id;
@@ -26,8 +26,8 @@ public class KankospotEntity {
     /**
      * タイトル
      */
-    @CsvBindByName(column = "title", required = true)
-    private String title;
+    @Parsed(field = "title")
+    public String title = "";
 
     public String getTitle() {
         return title;
@@ -40,8 +40,8 @@ public class KankospotEntity {
     /**
      * 本文
      */
-    @CsvBindByName(column = "text", required = true)
-    private String text;
+    @Parsed(field = "text")
+    public String text = "";
 
     public String getText() {
         return text;
@@ -54,8 +54,8 @@ public class KankospotEntity {
     /**
      * 種別
      */
-    @CsvBindByName(column = "categories", required = true)
-    private String categories;
+    @Parsed(field = "categories")
+    public String categories = "";
 
     public String getCategories() {
         return categories;
@@ -68,8 +68,8 @@ public class KankospotEntity {
     /**
      * タグ
      */
-    @CsvBindByName(column = "tags", required = true)
-    private String tags;
+    @Parsed(field = "tags")
+    public String tags = "";
 
     public String getTags() {
         return tags;
@@ -82,8 +82,8 @@ public class KankospotEntity {
     /**
      * ベースネーム
      */
-    @CsvBindByName(column = "basename", required = true)
-    private String basename;
+    @Parsed(field = "basename")
+    public String basename = "";
 
     public String getBasename() {
         return basename;
@@ -96,8 +96,8 @@ public class KankospotEntity {
     /**
      * 住所
      */
-    @CsvBindByName(column = "address", required = true)
-    private String address;
+    @Parsed(field = "address")
+    public String address = "";
 
     public String getAddress() {
         return address;
@@ -110,8 +110,8 @@ public class KankospotEntity {
     /**
      * 写真
      */
-    @CsvBindByName(column = "artimg", required = true)
-    private String artimg;
+    @Parsed(field = "artimg")
+    public String artimg = "";
 
     public String getArtimg() {
         return artimg;
@@ -124,8 +124,8 @@ public class KankospotEntity {
     /**
      * 営業時間
      */
-    @CsvBindByName(column = "eigyoujikan", required = true)
-    private String eigyoujikan;
+    @Parsed(field = "eigyoujikan")
+    public String eigyoujikan = "";
 
     public String getEigyoujikan() {
         return eigyoujikan;
@@ -138,8 +138,8 @@ public class KankospotEntity {
     /**
      * 休日
      */
-    @CsvBindByName(column = "holiday", required = true)
-    private String holiday;
+    @Parsed(field = "holiday")
+    public String holiday = "";
 
     public String getHoliday() {
         return holiday;
@@ -152,22 +152,22 @@ public class KankospotEntity {
     /**
      * 緯度
      */
-    @CsvBindByName(column = "latitude", required = true)
-    private Double latitude;
+    @Parsed(field = "latitude")
+    public Double latitude = 0d;
 
     public Double getLatitude() {
         return latitude;
     }
 
-    public void setHoliday(Double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
     /**
      * 経度
      */
-    @CsvBindByName(column = "longitude", required = true)
-    private Double longitude;
+    @Parsed(field = "longitude")
+    public Double longitude = 0d;
 
     public Double getLongitude() {
         return longitude;
@@ -180,8 +180,8 @@ public class KankospotEntity {
     /**
      * 駐車場
      */
-    @CsvBindByName(column = "parking", required = true)
-    private String parking;
+    @Parsed(field = "parking")
+    public String parking = "";
 
     public String getParking() {
         return parking;
@@ -194,8 +194,8 @@ public class KankospotEntity {
     /**
      * 電話番号
      */
-    @CsvBindByName(column = "phone", required = true)
-    private String phone;
+    @Parsed(field = "phone")
+    public String phone = "";
 
     public String getPhone() {
         return phone;
@@ -208,8 +208,8 @@ public class KankospotEntity {
     /**
      * 値段
      */
-    @CsvBindByName(column = "price", required = true)
-    private Integer price;
+    @Parsed(field = "price")
+    public Integer price = 0;
 
     public Integer getPrice() {
         return price;
@@ -222,8 +222,8 @@ public class KankospotEntity {
     /**
      * アクセス情報
      */
-    @CsvBindByName(column = "trafficdata", required = true)
-    private String trafficdata;
+    @Parsed(field = "trafficdata")
+    public String trafficdata = "";
 
     public String getTrafficdata() {
         return trafficdata;

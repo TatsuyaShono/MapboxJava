@@ -21,6 +21,7 @@ import android.content.res.AssetManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -75,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements
     private List<Double> lat = new ArrayList<>();
     private List<Double> lon = new ArrayList<>();
 
+    // CSV関連
+    private CsvUtil mCsvUtil = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
-        //CSVファイル読み込み
+        /*//CSVファイル読み込み
         KankospotFileDao csvFileDao = new KankospotFileDao();
         AssetManager assetManager = this.getResources().getAssets();
         try {
@@ -112,8 +116,38 @@ public class MainActivity extends AppCompatActivity implements
             e.printStackTrace();
         } catch (CsvException e) {
             e.printStackTrace();
-        }
+        }*/
+
+        readSample("kankospot.csv");
     }
+
+
+    /**
+     *  readSample
+     */
+    private void readSample( String fileName) {
+
+        List<KankospotEntity> list = mCsvUtil.readSample(fileName);
+        if (( list == null )||( list.size() == 0 )) {
+            toast_long("can not read");
+            return;
+        }
+        for (KankospotEntity obj : list) {
+            ids.add(obj.getId());
+            title.add(obj.getTitle());
+            text.add(obj.getText());
+            lat.add(obj.getLatitude());
+            lon.add(obj.getLatitude());
+        }
+
+    } // readSample
+
+    /**
+     * toast_long
+     */
+    private void toast_long( String msg ) {
+        ToastMaster.makeText( this, msg, Toast.LENGTH_LONG ).show();
+    } // toast_long
 
     @Override
     public void onMapReady(@NonNull final MapboxMap mapboxMap) {
@@ -143,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements
                 .withLayer(new SymbolLayer(LAYER_ID, SOURCE_ID)
                         .withProperties(PropertyFactory.iconImage(ICON_ID),
                                 iconAllowOverlap(true),
-                                iconOffset(new Float[] {0f, -9f}))
+                                iconOffset(new Float[]{0f, -9f}))
                 ), new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
@@ -214,13 +248,18 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 });
 
-                for(int i = 0 ; i < count ; i++){
-                    // マーカーの追加 ※この記述方法は将来サポートされなくなる
-                    mapboxMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(lat.get(count), lon.get(count)))
-                            .title(text.get(count))
-                            .snippet(title.get(count)));
-                }
+
+                mapboxMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(33.947918, 131.257232))
+                        .title("Title")
+                        .snippet("Text"));
+
+                /*// マーカーの追加 ※この記述方法は将来サポートされなくなる
+                mapboxMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(lat.get(count), lon.get(count)))
+                        .title(text.get(count))
+                        .snippet(title.get(count)));*/
+
 
                 mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
                     @Override
