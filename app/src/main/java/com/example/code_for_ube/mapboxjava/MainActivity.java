@@ -1,27 +1,15 @@
 package com.example.code_for_ube.mapboxjava;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
-
-import com.opencsv.exceptions.CsvException;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import timber.log.Timber;
 
-import android.content.res.AssetManager;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -76,9 +64,6 @@ public class MainActivity extends AppCompatActivity implements
     private List<Double> lat = new ArrayList<>();
     private List<Double> lon = new ArrayList<>();
 
-    // CSV関連
-    private CsvUtil mCsvUtil = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,62 +77,14 @@ public class MainActivity extends AppCompatActivity implements
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
-        /*//CSVファイル読み込み
-        KankospotFileDao csvFileDao = new KankospotFileDao();
-        AssetManager assetManager = this.getResources().getAssets();
-        try {
-            // CSVファイルの読み込み
-            InputStream inputStream = assetManager.open("kankospot.csv");
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream,"UTF-8");
-            BufferedReader bufferReader = new BufferedReader(inputStreamReader);
-            Reader reader = bufferReader;
-            List<KankospotEntity> items = csvFileDao.read(reader);
-            // csvファイルのデータ数を保持
-            count = items.size();
-            // 取り込んだ値をマッピング
-            for (KankospotEntity obj : items) {
-                ids.add(obj.getId());
-                title.add(obj.getTitle());
-                text.add(obj.getText());
-                lat.add(obj.getLatitude());
-                lon.add(obj.getLatitude());
+        findViewById(R.id.back_to_camera_tracking_mode).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SubActivity.class);
+                startActivity(intent);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (CsvException e) {
-            e.printStackTrace();
-        }*/
-
-        readSample("kankospot.csv");
+        });
     }
-
-
-    /**
-     *  readSample
-     */
-    private void readSample( String fileName) {
-
-        List<KankospotEntity> list = mCsvUtil.readSample(fileName);
-        if (( list == null )||( list.size() == 0 )) {
-            toast_long("can not read");
-            return;
-        }
-        for (KankospotEntity obj : list) {
-            ids.add(obj.getId());
-            title.add(obj.getTitle());
-            text.add(obj.getText());
-            lat.add(obj.getLatitude());
-            lon.add(obj.getLatitude());
-        }
-
-    } // readSample
-
-    /**
-     * toast_long
-     */
-    private void toast_long( String msg ) {
-        ToastMaster.makeText( this, msg, Toast.LENGTH_LONG ).show();
-    } // toast_long
 
     @Override
     public void onMapReady(@NonNull final MapboxMap mapboxMap) {
@@ -247,7 +184,6 @@ public class MainActivity extends AppCompatActivity implements
                         });
                     }
                 });
-
 
                 mapboxMap.addMarker(new MarkerOptions()
                         .position(new LatLng(33.947918, 131.257232))
